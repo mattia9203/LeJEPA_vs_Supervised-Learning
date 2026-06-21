@@ -27,12 +27,20 @@ def create_model(config: dict) -> nn.Module:
             model_name=model_name or "vit_small_patch16_224",
             num_classes=num_classes,
             freeze_backbone=freeze_backbone,
+            trainable_last_blocks=config.get("trainable_last_blocks"),
+            head_dropout=config.get("head_dropout", 0.0),
         )
     elif model_type == MODEL_TYPE_LEJEPA:
         model = LeJEPAViT(
             model_name=model_name or "OK-AI/lejepa-vits16-pretrain-in1k",
+            model_revision=config.get(
+                "model_revision",
+                "cc7022877d51494709ef398d437fb8619349e0f9",
+            ),
             num_classes=num_classes,
             freeze_backbone=freeze_backbone,
+            trainable_last_blocks=config.get("trainable_last_blocks"),
+            head_dropout=config.get("head_dropout", 0.0),
         )
     else:
         raise ValueError(

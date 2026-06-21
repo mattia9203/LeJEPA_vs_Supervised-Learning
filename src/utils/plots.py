@@ -148,6 +148,7 @@ def append_training_history(
         "model_type": config.get("model_type"),
         "model_name": config.get("model_name"),
         "freeze_backbone": config.get("freeze_backbone"),
+        "trainable_last_blocks": config.get("trainable_last_blocks"),
         "num_classes": config.get("num_classes"),
         "batch_size": config.get("batch_size"),
         "epochs_requested": config.get("epochs"),
@@ -155,7 +156,13 @@ def append_training_history(
         "optimizer": config.get("optimizer"),
         "scheduler": config.get("scheduler"),
         "initial_lr": config.get("lr"),
+        "backbone_lr": config.get("backbone_lr"),
+        "head_lr": config.get("head_lr"),
         "weight_decay": config.get("weight_decay"),
+        "label_smoothing": config.get("label_smoothing"),
+        "head_dropout": config.get("head_dropout"),
+        "train_color_jitter": config.get("train_color_jitter"),
+        "init_checkpoint": config.get("init_checkpoint"),
         "best_val_acc": best_val_acc_row.get("val_acc"),
         "best_val_acc_epoch": best_val_acc_row.get("epoch"),
         "best_val_loss": best_val_loss_row.get("val_loss"),
@@ -173,6 +180,23 @@ def append_training_history(
 
     fieldnames = list(summary.keys())
     write_header = not os.path.exists(history_path)
+    if not write_header:
+        with open(history_path, newline="") as f:
+            reader = csv.DictReader(f)
+            old_rows = list(reader)
+            old_fieldnames = reader.fieldnames or []
+
+        if old_fieldnames != fieldnames:
+            merged_fieldnames = list(old_fieldnames)
+            merged_fieldnames.extend(
+                field for field in fieldnames if field not in merged_fieldnames
+            )
+            with open(history_path, "w", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=merged_fieldnames)
+                writer.writeheader()
+                writer.writerows(old_rows)
+            fieldnames = merged_fieldnames
+
     with open(history_path, "a", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         if write_header:

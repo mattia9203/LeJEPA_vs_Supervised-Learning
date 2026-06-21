@@ -12,6 +12,7 @@ IMAGENET_STD = [0.229, 0.224, 0.225]
 # Model identifiers
 SUPERVISED_VIT_MODEL = "vit_small_patch16_224"
 LEJEPA_VIT_MODEL = "OK-AI/lejepa-vits16-pretrain-in1k"
+LEJEPA_VIT_REVISION = "cc7022877d51494709ef398d437fb8619349e0f9"
 
 # Supported model types
 MODEL_TYPE_SUPERVISED = "supervised_vit"
