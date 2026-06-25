@@ -1,0 +1,35 @@
+# LeJEPA ViT-S/16 - Linear Probe
+# Freeze backbone, train only classification head.
+
+data_root: "data"
+image_size: 224
+val_resize_size: 256
+batch_size: 64
+num_workers: 4
+num_classes: 30
+num_selected_classes: 30
+selected_classes: null
+train_color_jitter: false
+color_jitter_strength: 0.2
+
+epochs: 30
+lr: 0.01
+weight_decay: 0.0
+optimizer: "sgd"
+scheduler: "cosine"
+early_stopping: true
+early_stopping_patience: 6
+early_stopping_min_delta: 0.1
+
+model_type: "lejepa_vit"
+model_name: "OK-AI/lejepa-vits16-pretrain-in1k"
+model_revision: "cc7022877d51494709ef398d437fb8619349e0f9"
+freeze_backbone: true
+
+output_dir: "outputs"
+experiment_name: "linear_probe_lejepa"
+
+device: "cuda"
+mixed_precision: false
+seed: 42
+resume_checkpoint: null

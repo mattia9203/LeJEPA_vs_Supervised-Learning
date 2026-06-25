@@ -4,6 +4,7 @@ from typing import Callable, Dict, List, Optional, Tuple
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset
 
+from .multicrop import MultiCropDataset, multicrop_collate
 from .transforms import get_train_transforms, get_val_transforms
 
 
@@ -155,6 +156,7 @@ def get_imagenet100_loaders(config: dict) -> Tuple[DataLoader, DataLoader]:
         image_size=image_size,
         color_jitter=config.get("train_color_jitter", False),
         color_jitter_strength=config.get("color_jitter_strength", 0.2),
+        crop_scale=tuple(config.get("train_crop_scale", (0.5, 1.0))),
     )
     val_transform = get_val_transforms(
         image_size=image_size,
@@ -194,3 +196,104 @@ def get_imagenet100_loaders(config: dict) -> Tuple[DataLoader, DataLoader]:
     )
 
     return train_loader, val_loader
+
+
+def get_imagenet100_multicrop_loader(
+    config: dict,
+) -> Tuple[DataLoader, List[str], Dict[str, int]]:
+    """Create the LeJEPA 2-global + 6-local training loader."""
+    data_root = config["data_root"]
+    selected_classes, train_dirs, _ = discover_selected_classes(config)
+    class_to_idx = {
+        class_name: index for index, class_name in enumerate(selected_classes)
+    }
+    base_dataset = ImageNet100Subset(
+        root=data_root,
+        split="train",
+        class_to_idx=class_to_idx,
+        split_dirs=train_dirs,
+        transform=None,
+    )
+    dataset = MultiCropDataset(
+        base_dataset,
+        num_global_views=config.get("num_global_views", 2),
+        global_crop_size=config.get("global_crop_size", 224),
+        global_crop_scale=config.get("global_crop_scale", (0.3, 1.0)),
+        num_local_views=config.get("num_local_views", 6),
+        local_crop_size=config.get("local_crop_size", 98),
+        local_crop_scale=config.get("local_crop_scale", (0.05, 0.3)),
+    )
+    loader = DataLoader(
+        dataset,
+        batch_size=config.get("micro_batch_size", 16),
+        shuffle=True,
+        num_workers=config.get("num_workers", 4),
+        pin_memory=True,
+        drop_last=False,
+        collate_fn=multicrop_collate,
+    )
+    return loader, selected_classes, class_to_idx
+
+
+def get_imagenet100_probe_loaders(
+    config: dict,
+    train_fraction_per_class: float | None = None,
+) -> Tuple[DataLoader, DataLoader]:
+    """Create deterministic train/validation loaders for linear probing."""
+    import random
+    from torch.utils.data import Subset
+
+    selected_classes, train_dirs, val_dirs = discover_selected_classes(config)
+    class_to_idx = {
+        class_name: index for index, class_name in enumerate(selected_classes)
+    }
+    transform = get_val_transforms(
+        image_size=config.get("image_size", 224),
+        resize_size=config.get("val_resize_size", 256),
+    )
+    train_dataset = ImageNet100Subset(
+        root=config["data_root"],
+        split="train",
+        class_to_idx=class_to_idx,
+        split_dirs=train_dirs,
+        transform=transform,
+    )
+    val_dataset = ImageNet100Subset(
+        root=config["data_root"],
+        split="val",
+        class_to_idx=class_to_idx,
+        split_dirs=val_dirs,
+        transform=transform,
+    )
+
+    if train_fraction_per_class is not None and train_fraction_per_class < 1.0:
+        rng = random.Random(config.get("probe_seed", 42))
+        per_class: Dict[int, List[int]] = {
+            label: [] for label in range(len(selected_classes))
+        }
+        for index, (_, label) in enumerate(train_dataset.samples):
+            per_class[label].append(index)
+        selected_indices = []
+        for indices in per_class.values():
+            count = max(1, round(len(indices) * train_fraction_per_class))
+            selected_indices.extend(rng.sample(indices, count))
+        train_dataset = Subset(train_dataset, sorted(selected_indices))
+
+    batch_size = config.get("probe_batch_size", 256)
+    workers = config.get("num_workers", 4)
+    return (
+        DataLoader(
+            train_dataset,
+            batch_size=batch_size,
+            shuffle=True,
+            num_workers=workers,
+            pin_memory=True,
+        ),
+        DataLoader(
+            val_dataset,
+            batch_size=batch_size,
+            shuffle=False,
+            num_workers=workers,
+            pin_memory=True,
+        ),
+    )

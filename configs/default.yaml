@@ -1,0 +1,43 @@
+# Default configuration.
+# Override per experiment in the specialized config files.
+
+# Data
+data_root: "data"
+image_size: 224
+val_resize_size: 256
+batch_size: 32
+num_workers: 4
+num_classes: 30
+num_selected_classes: 30
+selected_classes: null
+train_color_jitter: false
+color_jitter_strength: 0.2
+
+# Training
+epochs: 30
+lr: 0.001
+weight_decay: 0.0001
+optimizer: "adam"  # adam | adamw | sgd
+scheduler: "cosine"  # cosine | step | none
+early_stopping: false
+early_stopping_patience: 6
+early_stopping_min_delta: 0.1  # Validation accuracy percentage points
+
+# Model
+model_type: "supervised_vit"  # supervised_vit | lejepa_vit
+model_name: "vit_small_patch16_224"
+freeze_backbone: false
+
+# Output
+output_dir: "outputs"
+experiment_name: "default"
+
+# Device
+device: "cuda"  # cuda | cpu
+mixed_precision: false
+
+# Reproducibility
+seed: 42
+
+# Resume
+resume_checkpoint: null

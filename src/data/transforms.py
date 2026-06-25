@@ -7,10 +7,11 @@ def get_train_transforms(
     image_size: int = IMAGE_SIZE,
     color_jitter: bool = False,
     color_jitter_strength: float = 0.2,
+    crop_scale: tuple[float, float] = (0.5, 1.0),
 ) -> transforms.Compose:
     """Training transforms for variable-resolution ImageNet-style images."""
     transform_list = [
-        transforms.RandomResizedCrop(image_size, scale=(0.5, 1.0)),
+        transforms.RandomResizedCrop(image_size, scale=crop_scale),
         transforms.RandomHorizontalFlip(p=0.5),
     ]
     if color_jitter:

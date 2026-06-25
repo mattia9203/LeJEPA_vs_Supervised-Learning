@@ -202,3 +202,123 @@ def append_training_history(
         if write_header:
             writer.writeheader()
         writer.writerow(summary)
+
+
+def plot_lejepa_curves(
+    history: List[Dict[str, Any]],
+    output_dir: str,
+) -> None:
+    """Plot SSL loss components, probe metrics, and VRAM usage."""
+    if not history:
+        return
+    os.environ.setdefault("MPLCONFIGDIR", str(Path(output_dir) / ".matplotlib_cache"))
+    import matplotlib
+    import numpy as np
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    plot_dir = Path(output_dir) / "plots"
+    plot_dir.mkdir(parents=True, exist_ok=True)
+    epochs = [_as_float(row.get("epoch")) for row in history]
+
+    def plot_series(filename, title, ylabel, keys, best_mode="auto"):
+        fig, ax = plt.subplots(figsize=(9, 5))
+        for key, label, color in keys:
+            points = [
+                (epoch, _as_float(row.get(key)))
+                for epoch, row in zip(epochs, history)
+                if _as_float(row.get(key)) is not None
+            ]
+            if not points:
+                continue
+            xs, ys = zip(*points)
+            ax.plot(xs, ys, label=label, color=color)
+            if best_mode is not None:
+                maximize = (
+                    best_mode == "max"
+                    or best_mode == "auto"
+                    and ("acc" in key or "f1" in key)
+                )
+                best_index = (
+                    int(np.argmax(ys)) if maximize else int(np.argmin(ys))
+                )
+                ax.scatter(xs[best_index], ys[best_index], color=color, zorder=3)
+                ax.annotate(
+                    f"{ys[best_index]:.4f}",
+                    (xs[best_index], ys[best_index]),
+                    xytext=(5, 7),
+                    textcoords="offset points",
+                    color=color,
+                )
+        ax.set_title(title)
+        ax.set_xlabel("Epoch")
+        ax.set_ylabel(ylabel)
+        ax.legend(loc="upper right")
+        ax.grid(alpha=0.25)
+        fig.tight_layout()
+        fig.savefig(plot_dir / filename, dpi=160)
+        plt.close(fig)
+
+    plot_series(
+        "ssl_loss_curves.png",
+        "LeJEPA Training Losses",
+        "Loss",
+        (
+            ("total_loss", "Total", "tab:blue"),
+            ("invariance_loss", "Invariance", "tab:orange"),
+            ("sigreg_loss", "SIGReg", "tab:green"),
+        ),
+    )
+    plot_series(
+        "probe_curves.png",
+        "Frozen-Backbone Linear Probe",
+        "Metric",
+        (
+            ("probe_acc", "Validation accuracy (%)", "tab:red"),
+            ("probe_f1", "Validation macro F1", "tab:purple"),
+        ),
+    )
+    plot_series(
+        "vram_curve.png",
+        "Peak Allocated VRAM",
+        "MiB",
+        (("vram_peak_mb", "Peak VRAM", "tab:brown"),),
+    )
+    plot_series(
+        "feature_std_curves.png",
+        "Feature Standard Deviation",
+        "Standard deviation",
+        (
+            ("feature_std_mean", "Mean feature std", "tab:blue"),
+            ("feature_std_min", "Minimum feature std", "tab:orange"),
+        ),
+        best_mode=None,
+    )
+    plot_series(
+        "feature_norm_curve.png",
+        "Mean Feature Norm",
+        "L2 norm",
+        (("feature_norm_mean", "Mean feature norm", "tab:green"),),
+        best_mode=None,
+    )
+    plot_series(
+        "effective_rank_curve.png",
+        "Feature Effective Rank",
+        "Effective rank",
+        (("effective_rank", "Effective rank", "tab:purple"),),
+        best_mode="max",
+    )
+    plot_series(
+        "near_constant_dims_curve.png",
+        "Near-Constant Feature Dimensions",
+        "Dimensions",
+        (
+            (
+                "num_near_constant_dims",
+                "Near-constant dimensions",
+                "tab:red",
+            ),
+        ),
+        best_mode="min",
+    )

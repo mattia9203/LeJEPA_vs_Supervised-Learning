@@ -1,0 +1,41 @@
+# LeJEPA ViT-S/16 - Partial Fine-tuning
+# Train the classification head, final two transformer blocks, and final norm.
+
+data_root: "data"
+image_size: 224
+val_resize_size: 256
+batch_size: 32
+num_workers: 4
+num_classes: 30
+num_selected_classes: 30
+selected_classes: null
+train_color_jitter: true
+color_jitter_strength: 0.2
+
+epochs: 30
+lr: 0.00001
+backbone_lr: 0.00001
+head_lr: 0.0001
+weight_decay: 0.05
+optimizer: "adamw"
+scheduler: "cosine"
+label_smoothing: 0.1
+head_dropout: 0.2
+early_stopping: true
+early_stopping_patience: 10
+early_stopping_min_delta: 0.1
+
+model_type: "lejepa_vit"
+model_name: "OK-AI/lejepa-vits16-pretrain-in1k"
+model_revision: "cc7022877d51494709ef398d437fb8619349e0f9"
+freeze_backbone: false
+trainable_last_blocks: 2
+
+output_dir: "outputs"
+experiment_name: "partial_finetune_lejepa_last2"
+
+device: "cuda"
+mixed_precision: true
+seed: 42
+init_checkpoint: null
+resume_checkpoint: null

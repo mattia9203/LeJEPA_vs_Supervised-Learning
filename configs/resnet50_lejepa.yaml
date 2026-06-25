@@ -1,0 +1,83 @@
+data_root: "data"
+image_size: 224
+val_resize_size: 256
+num_workers: 4
+num_classes: 30
+selected_classes:
+  - n01440764
+  - n01443537
+  - n01484850
+  - n01491361
+  - n01494475
+  - n01496331
+  - n01498041
+  - n01514668
+  - n01514859
+  - n01531178
+  - n01537544
+  - n01560419
+  - n01582220
+  - n01592084
+  - n01601694
+  - n01608432
+  - n01614925
+  - n01622779
+  - n01630670
+  - n01632458
+  - n01632777
+  - n01644900
+  - n01664065
+  - n01665541
+  - n01667114
+  - n01667778
+  - n01675722
+  - n01677366
+  - n01685808
+  - n01687978
+
+epochs: 90
+micro_batch_size: 32
+effective_batch_size: 128
+gradient_accumulation_steps: 4
+lr: 0.0005
+min_lr: 0.0000005
+warmup_epochs: 5
+weight_decay: 0.0005
+optimizer: "adamw"
+mixed_precision: true
+amp_dtype: "bfloat16"
+gradient_clipping: null
+
+num_global_views: 2
+global_crop_size: 224
+global_crop_scale: [0.3, 1.0]
+num_local_views: 6
+local_crop_size: 98
+local_crop_scale: [0.05, 0.3]
+
+sigreg_weight: 0.02
+sigreg_num_slices: 1024
+sigreg_num_points: 17
+proj_hidden_dim: 2048
+proj_output_dim: 256
+
+probe_interval: 5
+probe_epochs: 10
+probe_lr: 0.001
+probe_weight_decay: 0.000001
+probe_batch_size: 256
+probe_train_fraction_per_class: 0.2
+probe_seed: 42
+checkpoint_interval_epochs: 5
+collapse_near_constant_std_threshold: 0.0001
+collapse_compute_effective_rank: true
+collapse_effective_rank_max_samples: 2048
+
+model_type: "lejepa_cnn"
+model_name: "resnet50"
+output_dir: "outputs"
+experiment_name: "resnet50_lejepa"
+device: "cuda"
+seed: 42
+init_checkpoint: "outputs/resnet50_shared_init.pt"
+resume_checkpoint: null
