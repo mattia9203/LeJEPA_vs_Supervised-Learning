@@ -1,10 +1,3 @@
-"""Training entry point.
-
-Usage:
-    python -m src.train.train --config configs/linear_probe_supervised.yaml
-    python -m src.train.train --config configs/finetune_lejepa.yaml
-"""
-
 import argparse
 import copy
 import os
@@ -19,14 +12,12 @@ from .trainer import Trainer
 
 
 def load_config(config_path: str) -> dict:
-    """Load YAML config file."""
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
     return config
 
 
 def parse_sweep_pairs(value: str) -> list[tuple[float, float]]:
-    """Parse lr:weight_decay pairs from a comma-separated CLI string."""
     pairs = []
     for item in value.split(","):
         item = item.strip()
@@ -45,7 +36,6 @@ def parse_sweep_pairs(value: str) -> list[tuple[float, float]]:
 
 
 def parse_finetune_sweep(value: str) -> list[tuple[str, float, float, float]]:
-    """Parse name:backbone_lr:head_lr:weight_decay sweep entries."""
     runs = []
     for item in value.split(","):
         fields = [field.strip() for field in item.split(":")]
@@ -62,12 +52,10 @@ def parse_finetune_sweep(value: str) -> list[tuple[str, float, float, float]]:
 
 
 def format_float_for_name(value: float) -> str:
-    """Make a float safe for experiment directory names."""
     return f"{value:g}".replace("-", "m").replace(".", "p")
 
 
 def run_training(config: dict, logger) -> None:
-    """Build data/model/trainer and run one training job."""
     set_seed(config.get("seed", 42))
     logger.info(f"Config: {config}")
 
@@ -115,10 +103,8 @@ def run_training(config: dict, logger) -> None:
 
 
 def main() -> None:
-    # Parse args
-    parser = argparse.ArgumentParser(description="Train model on ImageNet-100 subset")
-    parser.add_argument("--config", type=str, required=True, help="Path to YAML config file")
-    # Allow overriding any config key from CLI
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, required=True)
     parser.add_argument("--data_root", type=str, default=None)
     parser.add_argument("--batch_size", type=int, default=None)
     parser.add_argument("--epochs", type=int, default=None)
@@ -132,29 +118,22 @@ def main() -> None:
         "--early_stopping",
         action=argparse.BooleanOptionalAction,
         default=None,
-        help="Enable or disable early stopping on validation accuracy",
     )
     parser.add_argument("--early_stopping_patience", type=int, default=None)
     parser.add_argument(
         "--early_stopping_min_delta",
         type=float,
         default=None,
-        help="Minimum validation-accuracy improvement in percentage points",
     )
     parser.add_argument(
         "--sweep_pairs",
         type=str,
         default=None,
-        help="Comma-separated lr:weight_decay pairs, e.g. 0.03:0,0.01:0.0001",
     )
     parser.add_argument(
         "--finetune_sweep",
         type=str,
         default=None,
-        help=(
-            "Comma-separated name:backbone_lr:head_lr:weight_decay entries, "
-            "e.g. A:1e-5:1e-4:0.05,B:3e-5:3e-4:0.05"
-        ),
     )
     parser.add_argument("--device", type=str, default=None)
     parser.add_argument("--seed", type=int, default=None)
@@ -162,15 +141,12 @@ def main() -> None:
         "--init_checkpoint",
         type=str,
         default=None,
-        help="Load model weights only and start a new training run",
     )
-    parser.add_argument("--resume", type=str, default=None, help="Path to checkpoint to resume from")
+    parser.add_argument("--resume", type=str, default=None)
     args = parser.parse_args()
 
-    # Load config
     config = load_config(args.config)
 
-    # Apply CLI overrides
     for key in [
         "data_root",
         "batch_size",
@@ -194,7 +170,6 @@ def main() -> None:
     if args.resume is not None:
         config["resume_checkpoint"] = args.resume
 
-    # Setup
     logger = setup_logger("main")
 
     if args.sweep_pairs is not None and args.finetune_sweep is not None:

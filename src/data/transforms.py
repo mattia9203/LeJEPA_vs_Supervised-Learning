@@ -9,7 +9,6 @@ def get_train_transforms(
     color_jitter_strength: float = 0.2,
     crop_scale: tuple[float, float] = (0.5, 1.0),
 ) -> transforms.Compose:
-    """Training transforms for variable-resolution ImageNet-style images."""
     transform_list = [
         transforms.RandomResizedCrop(image_size, scale=crop_scale),
         transforms.RandomHorizontalFlip(p=0.5),
@@ -33,7 +32,6 @@ def get_val_transforms(
     image_size: int = IMAGE_SIZE,
     resize_size: int = 256,
 ) -> transforms.Compose:
-    """Deterministic validation/analysis transforms."""
     return transforms.Compose([
         transforms.Resize(resize_size),
         transforms.CenterCrop(image_size),

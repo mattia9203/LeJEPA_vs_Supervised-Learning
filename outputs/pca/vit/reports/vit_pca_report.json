@@ -1,0 +1,177 @@
+﻿{
+  "vit_supervised": {
+    "block_03": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.3576465203613043,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_supervised/block_03"
+    },
+    "block_06": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.05017753043025732,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_supervised/block_06"
+    },
+    "block_09": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.05712092243134975,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_supervised/block_09"
+    },
+    "block_11": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.06908187508955597,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_supervised/block_11"
+    }
+  },
+  "vit_lejepa": {
+    "block_03": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.4472989509999752,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_lejepa/block_03"
+    },
+    "block_06": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.4594929288327694,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_lejepa/block_06"
+    },
+    "block_09": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.4635338434278965,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_lejepa/block_09"
+    },
+    "block_11": {
+      "num_images_processed": 500,
+      "input_tokens_shape": [
+        500,
+        196,
+        384
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.39863571015000343,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/vit/vit_lejepa/block_11"
+    }
+  },
+  "image_ids_identical_between_models": true,
+  "tokens_root": "outputs/xai/vit/gmar/features",
+  "manifest": "outputs/manifests/analysis_val500_manifest.csv"
+}

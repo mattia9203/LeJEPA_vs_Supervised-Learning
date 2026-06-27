@@ -1,5 +1,3 @@
-"""CNN post-training extraction: predictions, activations, and Grad-CAM."""
-
 from __future__ import annotations
 
 import argparse
@@ -20,8 +18,8 @@ from ..data.transforms import get_val_transforms
 from ..network.model_factory import create_model
 
 
-DEFAULT_MANIFEST = "outputs/analysis/manifests/analysis_val500_manifest.csv"
-DEFAULT_OUTPUT_DIR = "outputs/analysis/cnn"
+DEFAULT_MANIFEST = "outputs/manifests/analysis_val500_manifest.csv"
+DEFAULT_OUTPUT_DIR = "outputs/xai/cnn/gradcam"
 DEFAULT_SUPERVISED_CHECKPOINT = (
     "outputs/train/cnn_supervised/resnet50_sup_lr5e2_wd1e4_crop03/"
     "checkpoints/best_val_acc.pt"
@@ -331,7 +329,7 @@ def write_predictions(output_dir: Path, rows: List[Dict[str, Any]]) -> Path:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Extract CNN predictions, activations, and Grad-CAM maps.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", default=DEFAULT_MANIFEST)
     parser.add_argument("--output_dir", default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--supervised_checkpoint", default=DEFAULT_SUPERVISED_CHECKPOINT)

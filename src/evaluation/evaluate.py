@@ -1,9 +1,3 @@
-"""Standalone evaluation script.
-
-Usage:
-    python -m src.evaluation.evaluate --config configs/linear_probe_supervised.yaml --checkpoint outputs/linear_probe_supervised/checkpoints/best.pt
-"""
-
 import argparse
 import json
 import os
@@ -27,7 +21,6 @@ def evaluate(
     device: torch.device,
     use_amp: bool = False,
 ) -> dict:
-    """Run evaluation and return metrics dict."""
     model.eval()
     criterion = torch.nn.CrossEntropyLoss()
     total_loss = 0.0
@@ -71,13 +64,12 @@ def evaluate(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Evaluate a trained model on ImageNet-100 val subset")
-    parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
-    parser.add_argument("--checkpoint", type=str, required=True, help="Path to model checkpoint (.pt)")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, required=True)
+    parser.add_argument("--checkpoint", type=str, required=True)
     parser.add_argument("--device", type=str, default=None)
     args = parser.parse_args()
 
-    # Load config
     with open(args.config, "r") as f:
         config = yaml.safe_load(f)
     if args.device:
@@ -86,24 +78,19 @@ def main() -> None:
     set_seed(config.get("seed", 42))
     logger = setup_logger("eval")
 
-    # Data
     _, val_loader = get_imagenet100_loaders(config)
     logger.info(f"Val samples: {len(val_loader.dataset)}")
 
-    # Model
     model = create_model(config)
     device = torch.device(config.get("device", "cuda") if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
-    # Load checkpoint
     ckpt = torch.load(args.checkpoint, map_location=device, weights_only=False)
     model.load_state_dict(ckpt["model_state_dict"])
     logger.info(f"Loaded checkpoint from {args.checkpoint} (epoch {ckpt.get('epoch', '?')})")
 
-    # Evaluate
     results = evaluate(model, val_loader, device, use_amp=config.get("mixed_precision", False))
 
-    # Print results
     logger.info("=" * 50)
     logger.info("Evaluation Results:")
     for k, v in results.items():
@@ -113,7 +100,6 @@ def main() -> None:
             logger.info(f"  {k}: {v}")
     logger.info("=" * 50)
 
-    # Save results
     exp_dir = os.path.join(config["output_dir"], config["experiment_name"])
     os.makedirs(exp_dir, exist_ok=True)
     results_path = os.path.join(exp_dir, "eval_results.json")

@@ -1,5 +1,3 @@
-"""Self-supervised LeJEPA trainer for ResNet-50."""
-
 import csv
 import json
 import math
@@ -20,15 +18,6 @@ from .linear_probe import LinearProbeEvaluator
 
 
 class LeJEPATrainer:
-    """Train LeJEPA with 2 global and 6 local views.
-
-    SIGReg is evaluated independently on every micro-batch, matching the
-    official [views, batch, dim] API. Gradients are accumulated over 128 source
-    images before each
-    optimizer step. This avoids retaining all effective-batch computation
-    graphs in 8 GB VRAM.
-    """
-
     def __init__(
         self,
         model,

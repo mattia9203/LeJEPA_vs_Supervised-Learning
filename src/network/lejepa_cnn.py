@@ -1,5 +1,3 @@
-"""ResNet-50 encoder and projector for LeJEPA pretraining."""
-
 from typing import Dict, Sequence
 
 import torch
@@ -9,8 +7,6 @@ from .resnet50_backbone import ResNet50Backbone
 
 
 class ProjectionMLP(nn.Module):
-    """Projection head used by the official LeJEPA formulation."""
-
     def __init__(self, input_dim: int, hidden_dim: int, output_dim: int) -> None:
         super().__init__()
         self.net = nn.Sequential(
@@ -28,8 +24,6 @@ class ProjectionMLP(nn.Module):
 
 
 class LeJEPACNN(nn.Module):
-    """ResNet-50 backbone with a single symmetric LeJEPA projector."""
-
     def __init__(
         self,
         proj_hidden_dim: int = 2048,
@@ -53,7 +47,6 @@ class LeJEPACNN(nn.Module):
         self,
         views: Sequence[torch.Tensor],
     ) -> tuple[torch.Tensor, torch.Tensor]:
-        """Encode same-resolution views in one backbone call."""
         if not views:
             raise ValueError("A LeJEPA view group cannot be empty.")
         batch_size = views[0].shape[0]
@@ -71,7 +64,6 @@ class LeJEPACNN(nn.Module):
         global_views: Sequence[torch.Tensor],
         local_views: Sequence[torch.Tensor],
     ) -> Dict[str, torch.Tensor]:
-        """Encode 2 global and 6 local views, preserving the view dimension."""
         global_embeddings, global_projections = self._encode_view_group(global_views)
         local_embeddings, local_projections = self._encode_view_group(local_views)
         return {

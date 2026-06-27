@@ -1,5 +1,3 @@
-"""Train the final classifier on a frozen LeJEPA ResNet-50 backbone."""
-
 import argparse
 
 import torch

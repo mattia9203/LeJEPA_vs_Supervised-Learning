@@ -1,5 +1,3 @@
-"""Multi-crop ImageNet-100 dataset for LeJEPA training."""
-
 from typing import Dict, List, Sequence
 
 import torch
@@ -14,7 +12,6 @@ def _multicrop_transform(
     size: int,
     scale: Sequence[float],
 ) -> transforms.Compose:
-    """Official LeJEPA-style geometric and color augmentation."""
     return transforms.Compose(
         [
             transforms.RandomResizedCrop(size, scale=tuple(scale)),
@@ -43,8 +40,6 @@ def _multicrop_transform(
 
 
 class MultiCropDataset(Dataset):
-    """Wrap a PIL-image dataset and generate 2 global plus 6 local views."""
-
     def __init__(
         self,
         dataset: Dataset,
@@ -91,7 +86,6 @@ class MultiCropDataset(Dataset):
 
 
 def multicrop_collate(batch: List[Dict[str, object]]) -> Dict[str, object]:
-    """Stack each view position independently."""
     num_global = len(batch[0]["global_views"])
     num_local = len(batch[0]["local_views"])
     return {

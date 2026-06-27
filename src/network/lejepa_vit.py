@@ -1,16 +1,3 @@
-"""LeJEPA ViT-S/16 wrapper using Hugging Face transformers.
-
-Checkpoint: OK-AI/lejepa-vits16-pretrain-in1k
-
-LeJEPA is a self-supervised model. It does not have a classification head.
-We treat it as a feature extractor and attach a fresh ClassifierHead.
-
-Output handling:
-    The official checkpoint returns a dictionary whose "latent" entry is
-    the global image embedding. The wrapper uses it for classification and
-    retains fallbacks for standard Hugging Face vision-model outputs.
-"""
-
 import importlib
 import sys
 
@@ -23,13 +10,6 @@ from .classifier import ClassifierHead
 
 
 class LeJEPAViT(nn.Module):
-    """LeJEPA ViT-S/16 from Hugging Face, with a linear classification head.
-
-    Architecture:
-        backbone  – HF AutoModel (pretrained, self-supervised)
-        head      – ClassifierHead mapping embed_dim → num_classes
-    """
-
     def __init__(
         self,
         model_name: str = LEJEPA_VIT_MODEL,
@@ -42,16 +22,11 @@ class LeJEPAViT(nn.Module):
         super().__init__()
         self.freeze_backbone = freeze_backbone
         self.trainable_last_blocks = trainable_last_blocks
-
         self.config, self.backbone = self._load_pretrained_backbone(
             model_name,
             model_revision,
         )
-
-        # Determine embedding dimension
         embed_dim = self._get_embed_dim()
-
-        # Fresh classification head
         self.head = ClassifierHead(embed_dim, num_classes, dropout=head_dropout)
 
         if freeze_backbone:
@@ -61,7 +36,6 @@ class LeJEPAViT(nn.Module):
 
     @staticmethod
     def _load_pretrained_backbone(model_name: str, revision: str):
-        """Download and load the checkpoint's bundled ViT-v2 implementation."""
         snapshot_path = snapshot_download(
             repo_id=model_name,
             revision=revision,
@@ -73,9 +47,6 @@ class LeJEPAViT(nn.Module):
                 "hf_src/**",
             ],
         )
-
-        # The upstream files use absolute imports such as
-        # ``from configuration_vitv2 import ...`` and ``from hf_src ...``.
         if snapshot_path not in sys.path:
             sys.path.insert(0, snapshot_path)
         importlib.invalidate_caches()
@@ -90,22 +61,17 @@ class LeJEPAViT(nn.Module):
         return config, backbone
 
     def _get_embed_dim(self) -> int:
-        """Infer the embedding dimension from the model config."""
-        # Try common config attribute names
         for attr in ("hidden_size", "embed_dim", "d_model"):
             if hasattr(self.config, attr):
                 return getattr(self.config, attr)
-        # Fallback: ViT-S default
         return 384
 
     def _freeze_backbone(self) -> None:
-        """Freeze all backbone parameters."""
         for param in self.backbone.parameters():
             param.requires_grad = False
         self.backbone.eval()
 
     def _unfreeze_last_blocks(self, num_blocks: int) -> None:
-        """Train only the final transformer blocks and output normalization."""
         blocks = self.backbone.backbone.blocks
         if not 1 <= num_blocks <= len(blocks):
             raise ValueError(
@@ -122,7 +88,6 @@ class LeJEPAViT(nn.Module):
             param.requires_grad = True
 
     def train(self, mode: bool = True):
-        """Set training mode while keeping frozen backbone sections in eval."""
         super().train(mode)
         if self.freeze_backbone:
             self.backbone.eval()
@@ -135,7 +100,6 @@ class LeJEPAViT(nn.Module):
 
     @staticmethod
     def _extract_features(outputs) -> torch.Tensor:
-        """Extract the global image embedding from a backbone output."""
         if isinstance(outputs, dict) and outputs.get("latent") is not None:
             features = outputs["latent"]
         elif hasattr(outputs, "latent") and outputs.latent is not None:
@@ -175,10 +139,8 @@ class LeJEPAViT(nn.Module):
         return features
 
     def forward_features(self, x: torch.Tensor) -> torch.Tensor:
-        """Return LeJEPA's global image embedding before classification."""
         outputs = self.backbone(x)
         return self._extract_features(outputs)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Convert LeJEPA image embeddings into class logits."""
         return self.head(self.forward_features(x))

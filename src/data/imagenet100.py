@@ -12,20 +12,6 @@ IMG_EXTENSIONS = {".jpeg", ".jpg", ".png", ".bmp", ".webp"}
 
 
 class ImageNet100Subset(Dataset):
-    """ImageFolder-style ImageNet-100 subset loader.
-
-    Expected layout for the dataset currently used in this project:
-        data/
-            train.X1/<class_folder>/*.JPEG
-            train.X2/<class_folder>/*.JPEG
-            train.X3/<class_folder>/*.JPEG
-            train.X4/<class_folder>/*.JPEG
-            val.X/<class_folder>/*.JPEG
-
-    Only the selected class folders are loaded. The same class-to-index
-    mapping is shared by train and val, with labels in [0, num_classes - 1].
-    """
-
     def __init__(
         self,
         root: str,
@@ -79,7 +65,6 @@ class ImageNet100Subset(Dataset):
 
 
 def resolve_split_dirs(data_root: Path, split: str) -> List[Path]:
-    """Resolve the loaded ImageNet-100 split directories."""
     if split == "train":
         shard_dirs = sorted(path for path in data_root.iterdir() if path.is_dir() and path.name.startswith("train.X"))
         if shard_dirs:
@@ -96,7 +81,6 @@ def resolve_split_dirs(data_root: Path, split: str) -> List[Path]:
 
 
 def list_class_folders(split_dirs: List[Path]) -> List[str]:
-    """Return the sorted union of class folders from one or more split dirs."""
     class_names = set()
     for split_dir in split_dirs:
         class_names.update(path.name for path in split_dir.iterdir() if path.is_dir())
@@ -104,7 +88,6 @@ def list_class_folders(split_dirs: List[Path]) -> List[str]:
 
 
 def discover_selected_classes(config: dict) -> Tuple[List[str], List[Path], List[Path]]:
-    """Select the class folders to use for the 30-class ImageNet-100 subset."""
     data_root = Path(config["data_root"])
     train_dirs = resolve_split_dirs(data_root, "train")
     val_dirs = resolve_split_dirs(data_root, "val")
@@ -142,7 +125,6 @@ def discover_selected_classes(config: dict) -> Tuple[List[str], List[Path], List
 
 
 def get_imagenet100_loaders(config: dict) -> Tuple[DataLoader, DataLoader]:
-    """Create ImageNet-100 train/val DataLoaders for the selected 30 classes."""
     data_root = config["data_root"]
     image_size = config.get("image_size", 224)
     val_resize_size = config.get("val_resize_size", 256)
@@ -201,7 +183,6 @@ def get_imagenet100_loaders(config: dict) -> Tuple[DataLoader, DataLoader]:
 def get_imagenet100_multicrop_loader(
     config: dict,
 ) -> Tuple[DataLoader, List[str], Dict[str, int]]:
-    """Create the LeJEPA 2-global + 6-local training loader."""
     data_root = config["data_root"]
     selected_classes, train_dirs, _ = discover_selected_classes(config)
     class_to_idx = {
@@ -239,7 +220,6 @@ def get_imagenet100_probe_loaders(
     config: dict,
     train_fraction_per_class: float | None = None,
 ) -> Tuple[DataLoader, DataLoader]:
-    """Create deterministic train/validation loaders for linear probing."""
     import random
     from torch.utils.data import Subset
 

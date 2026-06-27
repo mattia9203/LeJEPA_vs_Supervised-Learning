@@ -1,5 +1,3 @@
-"""Deterministic linear probing for frozen image backbones."""
-
 import copy
 from typing import Dict, Tuple
 
@@ -13,8 +11,6 @@ from ..utils.seed import set_seed
 
 
 class LinearProbeEvaluator:
-    """Extract frozen features and train a fresh linear classifier."""
-
     def __init__(
         self,
         num_classes: int,
@@ -40,7 +36,6 @@ class LinearProbeEvaluator:
         self.effective_rank_max_samples = effective_rank_max_samples
 
     def _feature_diagnostics(self, features: torch.Tensor) -> Dict[str, float]:
-        """Measure feature spread and dimensionality on deterministic inputs."""
         features = features.float()
         feature_std = features.std(dim=0, unbiased=False)
         diagnostics = {

@@ -1,5 +1,3 @@
-"""Trainer class encapsulating the training and validation loops."""
-
 import csv
 import os
 import shutil
@@ -20,17 +18,6 @@ from .linear_probe import LinearProbeEvaluator
 
 
 class Trainer:
-    """Handles the full training lifecycle.
-
-    Supports:
-        - Standard and mixed-precision training
-        - LR scheduling (cosine, step, none)
-        - Checkpoint saving (best + last)
-        - Optional early stopping on validation accuracy
-        - Per-epoch CSV metrics logging
-        - Resume from checkpoint
-    """
-
     def __init__(
         self,
         model: nn.Module,
@@ -43,27 +30,21 @@ class Trainer:
         self.val_loader = val_loader
         self.config = config
 
-        # Directories
         self.exp_dir = os.path.join(config["output_dir"], config["experiment_name"])
         self.ckpt_dir = os.path.join(self.exp_dir, "checkpoints")
         os.makedirs(self.ckpt_dir, exist_ok=True)
 
-        # Device
         self.device = torch.device(config.get("device", "cuda") if torch.cuda.is_available() else "cpu")
         self.model = self.model.to(self.device)
 
-        # Loss
         self.criterion = nn.CrossEntropyLoss(
             label_smoothing=config.get("label_smoothing", 0.0),
         )
 
-        # Optimizer
         self.optimizer = self._build_optimizer()
 
-        # Scheduler
         self.scheduler = self._build_scheduler()
 
-        # Mixed precision
         self.use_amp = config.get("mixed_precision", False)
         amp_dtype_name = config.get("amp_dtype", "float16")
         self.amp_dtype = (
@@ -74,12 +55,10 @@ class Trainer:
             enabled=self.use_amp and self.amp_dtype == torch.float16,
         )
 
-        # Logging
         self.logger = setup_logger("trainer", log_dir=self.exp_dir)
         self.metrics_logger = MetricsLogger(self.exp_dir)
         self.metrics_logger.save_config(config)
 
-        # Tracking
         self.start_epoch = 0
         self.best_val_acc = 0.0
         self.epoch_history = []
@@ -126,14 +105,10 @@ class Trainer:
         self.early_stopping_reference_value = self.best_monitor_value
         self.epochs_without_meaningful_improvement = 0
 
-        # Resume
         if config.get("resume_checkpoint"):
             self._resume(config["resume_checkpoint"])
 
-    # ── Optimizer & Scheduler ────────────────────────────────────────────
-
     def _build_optimizer(self) -> torch.optim.Optimizer:
-        """Create optimizer from config."""
         opt_name = self.config.get("optimizer", "adam").lower()
         lr = self.config.get("lr", 1e-3)
         wd = self.config.get("weight_decay", 0.0)
@@ -176,7 +151,6 @@ class Trainer:
             raise ValueError(f"Unknown optimizer: {opt_name}")
 
     def _build_scheduler(self) -> Optional[torch.optim.lr_scheduler.LRScheduler]:
-        """Create LR scheduler from config."""
         sched_name = self.config.get("scheduler", "none").lower()
         epochs = self.config.get("epochs", 30)
 
@@ -208,10 +182,7 @@ class Trainer:
         else:
             raise ValueError(f"Unknown scheduler: {sched_name}")
 
-    # ── Resume ───────────────────────────────────────────────────────────
-
     def _resume(self, ckpt_path: str) -> None:
-        """Resume training from a checkpoint."""
         self.logger.info(f"Resuming from {ckpt_path}")
         ckpt = load_checkpoint(
             ckpt_path,
@@ -294,7 +265,6 @@ class Trainer:
         return current > reference + min_delta
 
     def _restore_monitor_state_from_history(self) -> None:
-        """Reconstruct monitor and patience state from an existing metrics CSV."""
         best = float("inf") if self.early_stopping_mode == "min" else float("-inf")
         reference = best
         without_improvement = 0
@@ -318,10 +288,7 @@ class Trainer:
         self.early_stopping_reference_value = reference
         self.epochs_without_meaningful_improvement = without_improvement
 
-    # ── Training ─────────────────────────────────────────────────────────
-
     def train_one_epoch(self, epoch: int) -> Dict[str, float]:
-        """Train for one epoch. Returns dict of metrics."""
         self.model.train()
         if self.device.type == "cuda":
             torch.cuda.reset_peak_memory_stats(self.device)
@@ -388,11 +355,8 @@ class Trainer:
         )
         return metrics
 
-    # ── Validation ───────────────────────────────────────────────────────
-
     @torch.no_grad()
     def validate(self) -> Dict[str, Any]:
-        """Run validation. Returns dict of metrics."""
         self.model.eval()
         total_loss = 0.0
         total_correct = 0
@@ -430,7 +394,6 @@ class Trainer:
         avg_loss = total_loss / total_samples
         avg_acc = 100.0 * total_correct / total_samples
 
-        # F1 (optional, requires sklearn)
         all_preds_np = np.concatenate(all_preds)
         all_targets_np = np.concatenate(all_targets)
         f1 = compute_f1(all_preds_np, all_targets_np)
@@ -440,10 +403,7 @@ class Trainer:
             metrics["val_f1"] = f1
         return metrics
 
-    # ── Full Training Loop ───────────────────────────────────────────────
-
     def fit(self) -> None:
-        """Full training loop over all epochs."""
         epochs = self.config.get("epochs", 30)
         self.logger.info(f"Starting training for {epochs} epochs")
         self.logger.info(f"Model type: {self.config['model_type']}")
@@ -474,13 +434,10 @@ class Trainer:
         for epoch in range(self.start_epoch, epochs):
             t0 = time.time()
 
-            # Train
             train_metrics = self.train_one_epoch(epoch)
 
-            # Validate
             val_metrics = self.validate()
 
-            # LR step
             current_lr = self.optimizer.param_groups[0]["lr"]
             current_lrs = {
                 group.get("name", f"group_{index}"): group["lr"]
@@ -489,7 +446,6 @@ class Trainer:
             if self.scheduler is not None:
                 self.scheduler.step()
 
-            # Track validation accuracy independently from checkpoint selection.
             is_best_val_acc = val_metrics["val_acc"] > self.best_val_acc
             if is_best_val_acc:
                 self.best_val_acc = val_metrics["val_acc"]
@@ -520,7 +476,6 @@ class Trainer:
                         >= self.early_stopping_patience
                     )
 
-            # Checkpoint
             probe_metrics = {
                 "probe_loss": "",
                 "probe_acc": "",
@@ -588,7 +543,6 @@ class Trainer:
                     os.path.join(self.ckpt_dir, "best_val_acc.pt"),
                 )
 
-            # Log
             elapsed = time.time() - t0
             log_row = {
                 "epoch": epoch + 1,

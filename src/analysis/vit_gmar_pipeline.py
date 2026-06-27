@@ -1,10 +1,3 @@
-"""ViT post-training extraction with patch tokens and GMAR maps.
-
-This module is analysis-only: it loads fixed checkpoints and a fixed image
-manifest, runs deterministic evaluation preprocessing, and writes artifacts
-under outputs/analysis/gmar/vit/.
-"""
-
 from __future__ import annotations
 
 import argparse
@@ -35,8 +28,8 @@ DEFAULT_LEJEPA_CHECKPOINT = (
     "outputs/train/vit_lejepa/ft_lejepa_regularized_from_probe/"
     "G_blr3em05_hlr0p0003_wd0p05/checkpoints/best.pt"
 )
-DEFAULT_MANIFEST = "outputs/analysis/manifests/analysis_val500_manifest.csv"
-DEFAULT_OUTPUT_DIR = "outputs/analysis/gmar/vit"
+DEFAULT_MANIFEST = "outputs/manifests/analysis_val500_manifest.csv"
+DEFAULT_OUTPUT_DIR = "outputs/xai/vit/gmar"
 SELECTED_BLOCKS = [3, 6, 9, 11]
 
 
@@ -48,8 +41,6 @@ class ManifestItem:
 
 
 class FixedManifestDataset(Dataset):
-    """Dataset backed by the fixed analysis manifest."""
-
     def __init__(
         self,
         manifest_path: Path,
@@ -465,7 +456,7 @@ def write_predictions_csv(output_dir: Path, rows: List[Dict[str, Any]]) -> Path:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Extract ViT tokens and GMAR maps.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", default=DEFAULT_MANIFEST)
     parser.add_argument("--output_dir", default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--supervised_checkpoint", default=DEFAULT_SUPERVISED_CHECKPOINT)
@@ -554,7 +545,7 @@ def main() -> None:
     reports["image_ids_identical"] = ids_match
     reports["predictions_csv"] = predictions_path.as_posix()
 
-    report_path = output_dir / "metadata" / "vit_gmar_report.json"
+    report_path = output_dir / "reports" / "vit_gmar_report.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     with open(report_path, "w", encoding="utf-8") as file:
         json.dump(reports, file, indent=2)

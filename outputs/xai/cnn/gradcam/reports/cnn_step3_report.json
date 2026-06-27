@@ -1,0 +1,148 @@
+﻿{
+  "cnn_supervised": {
+    "num_images": 500,
+    "accuracy": 75.4,
+    "activation_layers_saved": [
+      "layer2",
+      "layer3",
+      "layer4"
+    ],
+    "activation_reports": {
+      "layer2": {
+        "path": "outputs/xai/cnn/gradcam/features/cnn_supervised/activations/layer2.pt",
+        "shape": [
+          500,
+          512,
+          28,
+          28
+        ],
+        "has_nan": false
+      },
+      "layer3": {
+        "path": "outputs/xai/cnn/gradcam/features/cnn_supervised/activations/layer3.pt",
+        "shape": [
+          500,
+          1024,
+          14,
+          14
+        ],
+        "has_nan": false
+      },
+      "layer4": {
+        "path": "outputs/xai/cnn/gradcam/features/cnn_supervised/activations/layer4.pt",
+        "shape": [
+          500,
+          2048,
+          7,
+          7
+        ],
+        "has_nan": false
+      }
+    },
+    "gradcam_counts": {
+      "layer2": 500,
+      "layer3": 500,
+      "layer4": 500
+    },
+    "gradcam_example_shapes": {
+      "layer2": [
+        224,
+        224
+      ],
+      "layer3": [
+        224,
+        224
+      ],
+      "layer4": [
+        224,
+        224
+      ]
+    },
+    "activation_nan_counts": {
+      "layer2": 0,
+      "layer3": 0,
+      "layer4": 0
+    },
+    "gradcam_nan_counts": {
+      "layer2": 0,
+      "layer3": 0,
+      "layer4": 0
+    },
+    "image_ids_match_manifest": true
+  },
+  "cnn_lejepa": {
+    "num_images": 500,
+    "accuracy": 61.2,
+    "activation_layers_saved": [
+      "layer2",
+      "layer3",
+      "layer4"
+    ],
+    "activation_reports": {
+      "layer2": {
+        "path": "outputs/xai/cnn/gradcam/features/cnn_lejepa/activations/layer2.pt",
+        "shape": [
+          500,
+          512,
+          28,
+          28
+        ],
+        "has_nan": false
+      },
+      "layer3": {
+        "path": "outputs/xai/cnn/gradcam/features/cnn_lejepa/activations/layer3.pt",
+        "shape": [
+          500,
+          1024,
+          14,
+          14
+        ],
+        "has_nan": false
+      },
+      "layer4": {
+        "path": "outputs/xai/cnn/gradcam/features/cnn_lejepa/activations/layer4.pt",
+        "shape": [
+          500,
+          2048,
+          7,
+          7
+        ],
+        "has_nan": false
+      }
+    },
+    "gradcam_counts": {
+      "layer2": 500,
+      "layer3": 500,
+      "layer4": 500
+    },
+    "gradcam_example_shapes": {
+      "layer2": [
+        224,
+        224
+      ],
+      "layer3": [
+        224,
+        224
+      ],
+      "layer4": [
+        224,
+        224
+      ]
+    },
+    "activation_nan_counts": {
+      "layer2": 0,
+      "layer3": 0,
+      "layer4": 0
+    },
+    "gradcam_nan_counts": {
+      "layer2": 0,
+      "layer3": 0,
+      "layer4": 0
+    },
+    "image_ids_match_manifest": true
+  },
+  "image_ids_identical_between_models": true,
+  "image_ids_identical_to_manifest": true,
+  "predictions_csv": "outputs/xai/cnn/gradcam/metadata/cnn_predictions.csv",
+  "manifest": "outputs/manifests/analysis_val500_manifest.csv"
+}

@@ -1,0 +1,124 @@
+﻿{
+  "vit_supervised": {
+    "num_images": 500,
+    "accuracy": 90.0,
+    "tokens": {
+      "block_03": {
+        "path": "outputs/xai/vit/gmar/features/vit_supervised/tokens/block_03.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      },
+      "block_06": {
+        "path": "outputs/xai/vit/gmar/features/vit_supervised/tokens/block_06.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      },
+      "block_09": {
+        "path": "outputs/xai/vit/gmar/features/vit_supervised/tokens/block_09.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      },
+      "block_11": {
+        "path": "outputs/xai/vit/gmar/features/vit_supervised/tokens/block_11.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      }
+    },
+    "gmar": {
+      "block_counts": {
+        "block_03": 500,
+        "block_06": 500,
+        "block_09": 500,
+        "block_11": 500
+      },
+      "block_has_nan": {
+        "block_03": false,
+        "block_06": false,
+        "block_09": false,
+        "block_11": false
+      },
+      "example_shape": [
+        224,
+        224
+      ]
+    }
+  },
+  "vit_lejepa": {
+    "num_images": 500,
+    "accuracy": 88.8,
+    "tokens": {
+      "block_03": {
+        "path": "outputs/xai/vit/gmar/features/vit_lejepa/tokens/block_03.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      },
+      "block_06": {
+        "path": "outputs/xai/vit/gmar/features/vit_lejepa/tokens/block_06.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      },
+      "block_09": {
+        "path": "outputs/xai/vit/gmar/features/vit_lejepa/tokens/block_09.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      },
+      "block_11": {
+        "path": "outputs/xai/vit/gmar/features/vit_lejepa/tokens/block_11.pt",
+        "shape": [
+          500,
+          196,
+          384
+        ],
+        "has_nan": false
+      }
+    },
+    "gmar": {
+      "block_counts": {
+        "block_03": 500,
+        "block_06": 500,
+        "block_09": 500,
+        "block_11": 500
+      },
+      "block_has_nan": {
+        "block_03": false,
+        "block_06": false,
+        "block_09": false,
+        "block_11": false
+      },
+      "example_shape": [
+        224,
+        224
+      ]
+    }
+  },
+  "image_ids_identical": true,
+  "predictions_csv": "outputs/xai/vit/gmar/metadata/vit_predictions.csv"
+}

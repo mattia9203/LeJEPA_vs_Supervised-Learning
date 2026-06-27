@@ -1,0 +1,620 @@
+﻿{
+  "groups": {
+    "vit_supervised": {
+      "block_03": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_supervised/block_03",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_supervised/gmar/block_03",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 1.6093486547470093,
+        "mean_spearman": 0.18140195310115814,
+        "mean_iou_top20": 0.25287583470344543
+      },
+      "block_06": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_supervised/block_06",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_supervised/gmar/block_06",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": -0.610145092010498,
+        "mean_spearman": -0.23253478109836578,
+        "mean_iou_top20": 0.09131115674972534
+      },
+      "block_09": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_supervised/block_09",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_supervised/gmar/block_09",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.6894092559814453,
+        "mean_spearman": 0.017298387363553047,
+        "mean_iou_top20": 0.16512082517147064
+      },
+      "block_11": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_supervised/block_11",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_supervised/gmar/block_11",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.8908601999282837,
+        "mean_spearman": 0.0960581824183464,
+        "mean_iou_top20": 0.1727997064590454
+      }
+    },
+    "vit_lejepa": {
+      "block_03": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_lejepa/block_03",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_lejepa/gmar/block_03",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.8977971076965332,
+        "mean_spearman": 0.03882644325494766,
+        "mean_iou_top20": 0.2154037356376648
+      },
+      "block_06": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_lejepa/block_06",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_lejepa/gmar/block_06",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.6942936182022095,
+        "mean_spearman": -0.012235399335622787,
+        "mean_iou_top20": 0.19605261087417603
+      },
+      "block_09": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_lejepa/block_09",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_lejepa/gmar/block_09",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.43247663974761963,
+        "mean_spearman": 0.052763115614652634,
+        "mean_iou_top20": 0.21679925918579102
+      },
+      "block_11": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/vit/vit_lejepa/block_11",
+        "xai_dir": "outputs/xai/vit/gmar/saliency/vit_lejepa/gmar/block_11",
+        "predictions_path": "outputs/xai/vit/gmar/metadata/vit_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.4811530113220215,
+        "mean_spearman": 0.08323293924331665,
+        "mean_iou_top20": 0.24372181296348572
+      }
+    },
+    "cnn_supervised": {
+      "layer2": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/cnn/cnn_supervised/layer2",
+        "xai_dir": "outputs/xai/cnn/gradcam/saliency/cnn_supervised/gradcam/layer2",
+        "predictions_path": "outputs/xai/cnn/gradcam/metadata/cnn_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.3783864676952362,
+        "mean_spearman": 0.010162542574107647,
+        "mean_iou_top20": 0.1396120935678482
+      },
+      "layer3": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/cnn/cnn_supervised/layer3",
+        "xai_dir": "outputs/xai/cnn/gradcam/saliency/cnn_supervised/gradcam/layer3",
+        "predictions_path": "outputs/xai/cnn/gradcam/metadata/cnn_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.2474493384361267,
+        "mean_spearman": 0.03036203794181347,
+        "mean_iou_top20": 0.14812608063220978
+      },
+      "layer4": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/cnn/cnn_supervised/layer4",
+        "xai_dir": "outputs/xai/cnn/gradcam/saliency/cnn_supervised/gradcam/layer4",
+        "predictions_path": "outputs/xai/cnn/gradcam/metadata/cnn_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.6879779696464539,
+        "mean_spearman": 0.08876687288284302,
+        "mean_iou_top20": 0.29884931445121765
+      }
+    },
+    "cnn_lejepa": {
+      "layer2": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 3,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/cnn/cnn_lejepa/layer2",
+        "xai_dir": "outputs/xai/cnn/gradcam/saliency/cnn_lejepa/gradcam/layer2",
+        "predictions_path": "outputs/xai/cnn/gradcam/metadata/cnn_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 3,
+          "spearman": 3,
+          "iou_top20": 0,
+          "iou_otsu": 3,
+          "z_spearman": 3,
+          "z_iou_top20": 0,
+          "n_sas": 3
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2481,
+          "spearman": 2481,
+          "iou_top20": 2500,
+          "iou_otsu": 2481
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.7098477482795715,
+        "mean_spearman": 0.025321053341031075,
+        "mean_iou_top20": 0.1452491134405136
+      },
+      "layer3": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 4,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/cnn/cnn_lejepa/layer3",
+        "xai_dir": "outputs/xai/cnn/gradcam/saliency/cnn_lejepa/gradcam/layer3",
+        "predictions_path": "outputs/xai/cnn/gradcam/metadata/cnn_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 4,
+          "spearman": 4,
+          "iou_top20": 0,
+          "iou_otsu": 4,
+          "z_spearman": 4,
+          "z_iou_top20": 0,
+          "n_sas": 4
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2479,
+          "spearman": 2479,
+          "iou_top20": 2500,
+          "iou_otsu": 2479
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.4185635447502136,
+        "mean_spearman": 0.021781405434012413,
+        "mean_iou_top20": 0.15078598260879517
+      },
+      "layer4": {
+        "num_expected_from_predictions": 500,
+        "num_images_processed": 500,
+        "num_pca_maps_found": 500,
+        "num_xai_maps_found": 500,
+        "num_missing_pca_maps": 0,
+        "num_missing_xai_maps": 0,
+        "missing_pca_examples": [],
+        "missing_xai_examples": [],
+        "num_nan_pca_maps": 0,
+        "num_nan_xai_maps": 0,
+        "num_constant_pca_maps": 0,
+        "num_constant_xai_maps": 0,
+        "example_map_shape": [
+          224,
+          224
+        ],
+        "pca_dir": "outputs/pca/cnn/cnn_lejepa/layer4",
+        "xai_dir": "outputs/xai/cnn/gradcam/saliency/cnn_lejepa/gradcam/layer4",
+        "predictions_path": "outputs/xai/cnn/gradcam/metadata/cnn_predictions.csv",
+        "image_ids_coherent_with_predictions": true,
+        "num_metric_nan": {
+          "pearson": 0,
+          "spearman": 0,
+          "iou_top20": 0,
+          "iou_otsu": 0,
+          "z_spearman": 0,
+          "z_iou_top20": 0,
+          "n_sas": 0
+        },
+        "shuffled_baseline_count": {
+          "pearson": 2500,
+          "spearman": 2500,
+          "iou_top20": 2500,
+          "iou_otsu": 2500
+        },
+        "shuffled_std_near_zero_metrics": [],
+        "mean_n_sas": 0.39892736077308655,
+        "mean_spearman": 0.12109893560409546,
+        "mean_iou_top20": 0.1868453323841095
+      }
+    }
+  },
+  "mean_n_sas_by_model_layer": {
+    "vit_supervised": {
+      "block_03": 1.6093487368673087,
+      "block_06": -0.610145081795752,
+      "block_09": 0.6894092426374555,
+      "block_11": 0.8908601605147123
+    },
+    "vit_lejepa": {
+      "block_03": 0.8977970856577158,
+      "block_06": 0.6942936431542039,
+      "block_09": 0.4324766750112176,
+      "block_11": 0.48115297600626944
+    },
+    "cnn_supervised": {
+      "layer2": 0.3783864709660411,
+      "layer3": 0.24744935148581862,
+      "layer4": 0.6879779678583146
+    },
+    "cnn_lejepa": {
+      "layer2": 0.7098478002499946,
+      "layer3": 0.4185635163486304,
+      "layer4": 0.39892738296836616
+    }
+  },
+  "csv_outputs": {
+    "sas_scores": "outputs/sas/sas_scores.csv",
+    "sas_summary_by_model_layer": "outputs/sas/sas_summary_by_model_layer.csv",
+    "sas_paired_tests": "outputs/sas/sas_paired_tests.csv",
+    "sas_shuffled_baseline": "outputs/sas/sas_shuffled_baseline.csv"
+  },
+  "notes": {
+    "n_sas": "0.5 * z_spearman + 0.5 * z_iou_top20, normalized against per-model/layer shuffled baselines.",
+    "pipeline": "Read-only post-training analysis; PCA, GMAR, and Grad-CAM maps were not recalculated."
+  }
+}

@@ -1,0 +1,141 @@
+﻿{
+  "cnn_supervised": {
+    "layer2": {
+      "num_images_processed": 500,
+      "input_activations_shape": [
+        500,
+        512,
+        28,
+        28
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.3074389344453812,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/cnn/cnn_supervised/layer2"
+    },
+    "layer3": {
+      "num_images_processed": 500,
+      "input_activations_shape": [
+        500,
+        1024,
+        14,
+        14
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.24549894455075263,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/cnn/cnn_supervised/layer3"
+    },
+    "layer4": {
+      "num_images_processed": 500,
+      "input_activations_shape": [
+        500,
+        2048,
+        7,
+        7
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.2595772464424372,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/cnn/cnn_supervised/layer4"
+    }
+  },
+  "cnn_lejepa": {
+    "layer2": {
+      "num_images_processed": 500,
+      "input_activations_shape": [
+        500,
+        512,
+        28,
+        28
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.283574658960104,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/cnn/cnn_lejepa/layer2"
+    },
+    "layer3": {
+      "num_images_processed": 500,
+      "input_activations_shape": [
+        500,
+        1024,
+        14,
+        14
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.22507904221117497,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/cnn/cnn_lejepa/layer3"
+    },
+    "layer4": {
+      "num_images_processed": 500,
+      "input_activations_shape": [
+        500,
+        2048,
+        7,
+        7
+      ],
+      "pca_maps_saved": 500,
+      "example_pca_map_shape": [
+        224,
+        224
+      ],
+      "pca_map_min": 0.0,
+      "pca_map_max": 1.0,
+      "pca_map_mean": 0.2888311856240034,
+      "num_maps_with_nan": 0,
+      "num_constant_or_near_constant_maps": 0,
+      "top20_masks_saved": 500,
+      "otsu_masks_saved": 500,
+      "output_path": "outputs/pca/cnn/cnn_lejepa/layer4"
+    }
+  },
+  "image_ids_identical_between_models": true,
+  "features_root": "outputs/xai/cnn/gradcam/features",
+  "manifest": "outputs/manifests/analysis_val500_manifest.csv"
+}

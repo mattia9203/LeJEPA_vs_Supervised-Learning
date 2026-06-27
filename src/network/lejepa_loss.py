@@ -1,5 +1,3 @@
-"""Official-style LeJEPA invariance and SIGReg objective."""
-
 from typing import Dict
 
 import torch
@@ -9,13 +7,6 @@ import lejepa
 
 
 class LeJEPALoss(nn.Module):
-    """LeJEPA loss without predictor, teacher, or stop-gradient.
-
-    Projections have shape [views, batch, projection_dim]. The invariance term
-    pulls every view toward the per-image mean projection. SIGReg is the
-    official sliced Epps-Pulley normality statistic.
-    """
-
     def __init__(
         self,
         sigreg_weight: float = 0.02,

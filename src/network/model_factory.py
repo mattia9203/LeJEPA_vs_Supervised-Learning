@@ -1,5 +1,3 @@
-"""Model factory: single entry point for creating models from config."""
-
 import torch.nn as nn
 
 from ..globals import (
@@ -15,15 +13,6 @@ from .supervised_cnn import SupervisedCNN
 
 
 def create_model(config: dict) -> nn.Module:
-    """Instantiate a model based on config['model_type'].
-
-    Supported model types:
-        - 'supervised_vit' : timm-based supervised ViT-S/16
-        - 'lejepa_vit'     : Hugging Face LeJEPA ViT-S/16
-
-    Returns:
-        nn.Module with a .forward(x) → logits interface.
-    """
     model_type = config["model_type"]
     model_name = config.get("model_name", None)
     num_classes = config.get("num_classes", 30)

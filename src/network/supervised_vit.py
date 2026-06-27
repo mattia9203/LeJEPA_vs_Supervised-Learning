@@ -1,5 +1,3 @@
-"""Supervised ViT-S/16 wrapper using timm."""
-
 import torch
 import torch.nn as nn
 import timm
@@ -9,12 +7,6 @@ from .classifier import ClassifierHead
 
 
 class SupervisedViT(nn.Module):
-    """Supervised pretrained ViT-S/16 from timm.
-
-    The original timm classification head is removed and replaced with a
-    fresh head for the selected ImageNet-100 subset classes.
-    """
-
     def __init__(
         self,
         model_name: str = SUPERVISED_VIT_MODEL,
@@ -36,13 +28,11 @@ class SupervisedViT(nn.Module):
             self._unfreeze_last_blocks(trainable_last_blocks)
 
     def _freeze_backbone(self) -> None:
-        """Freeze all backbone parameters for linear probing."""
         for param in self.backbone.parameters():
             param.requires_grad = False
         self.backbone.eval()
 
     def _unfreeze_last_blocks(self, num_blocks: int) -> None:
-        """Train only the final transformer blocks and output normalization."""
         blocks = self.backbone.blocks
         if not 1 <= num_blocks <= len(blocks):
             raise ValueError(
@@ -59,7 +49,6 @@ class SupervisedViT(nn.Module):
             param.requires_grad = True
 
     def train(self, mode: bool = True):
-        """Set training mode while keeping frozen backbone sections in eval."""
         super().train(mode)
         if self.freeze_backbone:
             self.backbone.eval()
@@ -71,7 +60,6 @@ class SupervisedViT(nn.Module):
         return self
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward pass: backbone features -> classifier logits."""
         features = self.backbone(x)
         logits = self.head(features)
         return logits

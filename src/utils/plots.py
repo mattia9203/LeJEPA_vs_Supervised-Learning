@@ -1,5 +1,3 @@
-"""Plot training curves and append run summaries."""
-
 import csv
 import os
 from datetime import datetime
@@ -23,7 +21,6 @@ def _best_index(values: Sequence[float], mode: str) -> int:
 
 
 def plot_training_curves(history: List[Dict[str, Any]], output_dir: str) -> None:
-    """Save loss and metric curves with best points annotated."""
     if not history:
         return
 
@@ -131,7 +128,6 @@ def append_training_history(
     epoch_history: List[Dict[str, Any]],
     exp_dir: str,
 ) -> None:
-    """Append one run summary row to the global training history CSV."""
     if not epoch_history:
         return
 
@@ -208,7 +204,6 @@ def plot_lejepa_curves(
     history: List[Dict[str, Any]],
     output_dir: str,
 ) -> None:
-    """Plot SSL loss components, probe metrics, and VRAM usage."""
     if not history:
         return
     os.environ.setdefault("MPLCONFIGDIR", str(Path(output_dir) / ".matplotlib_cache"))

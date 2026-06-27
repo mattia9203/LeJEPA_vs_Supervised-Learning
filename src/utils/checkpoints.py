@@ -17,7 +17,6 @@ def save_checkpoint(
     scheduler: Optional[Any] = None,
     scaler: Optional[Any] = None,
 ) -> None:
-    """Save model checkpoint. Always saves 'last.pt'; if *is_best*, also saves 'best.pt'."""
     Path(save_dir).mkdir(parents=True, exist_ok=True)
     state = {
         "epoch": epoch,
@@ -43,7 +42,6 @@ def load_checkpoint(
     scaler: Optional[Any] = None,
     device: str = "cpu",
 ) -> Dict[str, Any]:
-    """Load a checkpoint. Returns the saved metadata dict."""
     ckpt = torch.load(path, map_location=device, weights_only=False)
     model.load_state_dict(ckpt["model_state_dict"])
     if optimizer is not None and "optimizer_state_dict" in ckpt:

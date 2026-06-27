@@ -1,5 +1,3 @@
-"""Generate ViT PCA maps from patch tokens extracted in the GMAR step."""
-
 from __future__ import annotations
 
 import argparse
@@ -17,15 +15,14 @@ from torchvision import transforms
 from tqdm import tqdm
 
 
-DEFAULT_TOKENS_ROOT = "outputs/analysis/gmar/vit/features"
-DEFAULT_MANIFEST = "outputs/analysis/manifests/analysis_val500_manifest.csv"
-DEFAULT_OUTPUT_DIR = "outputs/analysis/pca/vit"
+DEFAULT_TOKENS_ROOT = "outputs/xai/vit/gmar/features"
+DEFAULT_MANIFEST = "outputs/manifests/analysis_val500_manifest.csv"
+DEFAULT_OUTPUT_DIR = "outputs/pca/vit"
 MODELS = ["vit_supervised", "vit_lejepa"]
 BLOCKS = ["block_03", "block_06", "block_09", "block_11"]
 
 
 def read_manifest(manifest_path: Path) -> Dict[str, Path]:
-    """Map fixed image ids to original image paths using manifest order."""
     mapping: Dict[str, Path] = {}
     with open(manifest_path, newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
@@ -57,7 +54,6 @@ def normalize_map(values: torch.Tensor, eps: float = 1e-8) -> tuple[torch.Tensor
 
 
 def compute_pca_map(tokens: torch.Tensor, eps: float = 1e-8) -> tuple[np.ndarray, bool]:
-    """Compute abs(PC1) spatial map from one image's [196, D] patch tokens."""
     if tokens.dim() != 2:
         raise ValueError(f"Expected tokens [196, D], got {tuple(tokens.shape)}")
     if tokens.shape[0] != 196:
@@ -72,7 +68,6 @@ def compute_pca_map(tokens: torch.Tensor, eps: float = 1e-8) -> tuple[np.ndarray
         _, _, vh = torch.linalg.svd(centered, full_matrices=False)
         pc1 = centered @ vh[0]
     except RuntimeError:
-        # Fallback for rare SVD convergence issues on nearly degenerate data.
         _, _, vh = torch.pca_lowrank(centered, q=1, center=False)
         pc1 = centered @ vh[:, 0]
 
@@ -238,7 +233,7 @@ def process_block(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate ViT PCA maps from saved patch tokens.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--tokens_root", default=DEFAULT_TOKENS_ROOT)
     parser.add_argument("--manifest", default=DEFAULT_MANIFEST)
     parser.add_argument("--output_dir", default=DEFAULT_OUTPUT_DIR)
@@ -284,7 +279,7 @@ def main() -> None:
     report["tokens_root"] = tokens_root.as_posix()
     report["manifest"] = Path(args.manifest).as_posix()
 
-    report_path = output_root / "vit_pca_report.json"
+    report_path = output_root / "reports" / "vit_pca_report.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     with open(report_path, "w", encoding="utf-8") as file:
         json.dump(report, file, indent=2)

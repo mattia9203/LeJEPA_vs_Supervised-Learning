@@ -1,5 +1,3 @@
-"""Supervised ResNet-50 classifier trained from scratch."""
-
 import torch
 import torch.nn as nn
 
@@ -9,8 +7,6 @@ from .resnet50_backbone import ResNet50Backbone
 
 
 class SupervisedCNN(nn.Module):
-    """ResNet-50 backbone plus a 30-class classification head."""
-
     def __init__(
         self,
         num_classes: int = NUM_CLASSES,

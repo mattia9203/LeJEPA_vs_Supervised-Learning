@@ -1,12 +1,8 @@
-"""Minimal Grad-CAM implementation for ResNet-based classifiers."""
-
 import torch
 import torch.nn.functional as F
 
 
 class CNNGradCAM:
-    """Generate class activation maps from a convolutional target layer."""
-
     def __init__(self, model, target_layer=None) -> None:
         self.model = model
         self.target_layer = target_layer or model.backbone.layer4

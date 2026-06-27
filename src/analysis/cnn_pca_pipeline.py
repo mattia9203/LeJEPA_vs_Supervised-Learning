@@ -1,5 +1,3 @@
-"""Generate CNN PCA maps from saved activation tensors."""
-
 from __future__ import annotations
 
 import argparse
@@ -17,10 +15,10 @@ from torchvision import transforms
 from tqdm import tqdm
 
 
-DEFAULT_FEATURES_ROOT = "outputs/analysis/cnn/features"
-DEFAULT_MANIFEST = "outputs/analysis/manifests/analysis_val500_manifest.csv"
-DEFAULT_OUTPUT_DIR = "outputs/analysis/cnn/pca"
-DEFAULT_REPORTS_DIR = "outputs/analysis/cnn/reports"
+DEFAULT_FEATURES_ROOT = "outputs/xai/cnn/gradcam/features"
+DEFAULT_MANIFEST = "outputs/manifests/analysis_val500_manifest.csv"
+DEFAULT_OUTPUT_DIR = "outputs/pca/cnn"
+DEFAULT_REPORTS_DIR = "outputs/pca/cnn/reports"
 MODELS = ["cnn_supervised", "cnn_lejepa"]
 LAYERS = ["layer2", "layer3", "layer4"]
 
@@ -52,7 +50,6 @@ def normalize_map(values: torch.Tensor, eps: float = 1e-8) -> tuple[torch.Tensor
 
 
 def compute_pca_map(activation: torch.Tensor, eps: float = 1e-8) -> tuple[np.ndarray, bool]:
-    """Compute abs(PC1) from one [C, H, W] activation map."""
     if activation.dim() != 3:
         raise ValueError(f"Expected activation [C, H, W], got {tuple(activation.shape)}")
     channels, height, width = activation.shape
@@ -216,7 +213,7 @@ def process_layer(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate CNN PCA maps from saved activations.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--features_root", default=DEFAULT_FEATURES_ROOT)
     parser.add_argument("--manifest", default=DEFAULT_MANIFEST)
     parser.add_argument("--output_dir", default=DEFAULT_OUTPUT_DIR)

@@ -1,5 +1,3 @@
-"""CLI entry point for ResNet-50 LeJEPA pretraining."""
-
 import argparse
 import json
 
@@ -21,7 +19,7 @@ def load_config(path: str) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Train ResNet-50 with LeJEPA")
+    parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
     parser.add_argument("--epochs", type=int)
     parser.add_argument("--micro_batch_size", type=int)
